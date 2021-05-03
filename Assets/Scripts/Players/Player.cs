@@ -13,10 +13,19 @@ public class Player : MonoBehaviour
     protected List<Item> inventory = new List<Item>();
 
     Rigidbody rb;
+    // input vars
+    float horizontal;
+    float vertical;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical"); 
     }
 
     private void FixedUpdate()
@@ -26,10 +35,7 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical"); 
         Vector3 dir = new Vector3(horizontal, 0f, vertical);
-
         rb.velocity = movementSpeed * Time.fixedDeltaTime * dir;
     }
 
