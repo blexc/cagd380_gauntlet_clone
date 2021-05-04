@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -14,30 +15,39 @@ public class Player : MonoBehaviour
     protected List<Item> inventory = new List<Item>();
 
     Rigidbody rb;
+    Vector2 movementInput;
 
-    // input vars
-    float horizontal;
-    float vertical;
+    #region recieve input
+    public void OnMove(InputAction.CallbackContext ctx) =>
+        movementInput = ctx.ReadValue<Vector2>();
+
+    public void OnFire(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed) MeleeAttack();
+    }
+
+    public void OnMagic(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed) ProjectileAttack(); 
+    }
+
+    public void OnStart(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            // TODO pause game?
+        }
+    }
+    #endregion
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical"); 
-    }
-
     private void FixedUpdate()
     {
-        Move();
-    }
-
-    private void Move()
-    {
-        Vector3 dir = new Vector3(horizontal, 0f, vertical);
+        Vector3 dir = new Vector3(movementInput.x, 0f, movementInput.y);
         rb.velocity = movementSpeed * Time.fixedDeltaTime * dir;
     }
 
