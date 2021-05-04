@@ -10,9 +10,11 @@ public class Player : MonoBehaviour
     [SerializeField] protected int armor;
     [SerializeField] protected int movementSpeed;
     [SerializeField] protected int attackSpeed;
+    [SerializeField] protected GameObject projectilePrefab;
     protected List<Item> inventory = new List<Item>();
 
     Rigidbody rb;
+
     // input vars
     float horizontal;
     float vertical;
@@ -46,7 +48,12 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int value)
     {
-        // TODO 
+        health -= value;
+        if (health <= 0)
+        {
+            // die
+            Destroy(gameObject);
+        }
     }
 
     protected virtual void MeleeAttack()
