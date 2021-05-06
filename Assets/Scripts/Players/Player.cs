@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] protected int playerNumber;
     [SerializeField] protected int score;
     [SerializeField] protected int health;
     [SerializeField] protected int damage;
