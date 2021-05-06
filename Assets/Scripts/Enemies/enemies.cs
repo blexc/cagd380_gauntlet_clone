@@ -47,12 +47,11 @@ public class enemies : MonoBehaviour
         Debug.Log("attack");
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             Attack();
         }
     }
-
 }
