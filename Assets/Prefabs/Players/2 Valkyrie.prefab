@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 2
   score: 0
-  health: 0
+  health: 600
   damage: 0
   armor: 0
   movementSpeed: 500
