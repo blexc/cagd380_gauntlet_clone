@@ -44,6 +44,15 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        if (FollowCam.Instance)
+            FollowCam.Instance.AddPlayerTransform(transform);
+    }
+
+    private void Destroy()
+    {
+        if (FollowCam.Instance)
+            FollowCam.Instance.RemovePlayerTransform(transform);
     }
 
     private void FixedUpdate()

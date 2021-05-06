@@ -8,10 +8,11 @@ public class FollowCam : MonoBehaviour
     static private FollowCam _instance;
     static public FollowCam Instance { get { return _instance; } }
 
-    public float camY = 20f;
-    public float easing = 0.05f;
+    [SerializeField] private float camY = 20f;
+    [SerializeField] private float easing = 0.05f;
 
-    public GameObject poi;
+    private List<Transform> playerTransforms = new List<Transform>();
+    Camera cam;
 
     private void Awake()
     {
@@ -20,25 +21,41 @@ public class FollowCam : MonoBehaviour
             Destroy(_instance);
         else
             _instance = this;
+
+        cam = GetComponent<Camera>();
     }
 
     private void FixedUpdate()
     {
-        Vector3 destination;
-
-        if (!poi)
+        // if there are players in the scene...
+        if (playerTransforms.Count > 0)
         {
-            destination = Vector3.zero;
-        }
-        else
-        {
-            destination = poi.transform.position;
-            destination = Vector3.Lerp(transform.position, destination, easing);
-        }
+            // take the average of all the positions of each active player
+            Vector3 target = Vector3.zero;
+            foreach (Transform t in playerTransforms)
+                target += t.position;
+            target /= playerTransforms.Count;
 
-        destination.y = camY;
-        transform.position = destination;
-        Camera.main.orthographicSize = camY;
+            // lerp the cur pos to the target pos
+            target = Vector3.Lerp(transform.position, target, easing);
+            target.y = camY;
+
+            // update pos
+            transform.position = target;
+            cam.orthographicSize = camY;
+        }
+    }
+
+    // adds the player to the list
+    public void AddPlayerTransform(Transform t)
+    {
+        playerTransforms.Add(t);
+    }
+
+    // removes player from the list
+    public void RemovePlayerTransform(Transform t)
+    {
+        playerTransforms.Remove(t);
     }
 }
 
