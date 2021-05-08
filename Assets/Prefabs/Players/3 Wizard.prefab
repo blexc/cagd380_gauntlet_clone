@@ -123,14 +123,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8811f6d2a336b74288dbf35ce1c38ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 3
   score: 0
   health: 600
   damage: 10
   armor: 10
   movementSpeed: 500
   attackSpeed: 10
-  projectilePrefab: {fileID: 0}
+  physicalProjectilePrefab: {fileID: 0}
+  magicProjectilePrefab: {fileID: 0}
 --- !u!114 &2320946367527888856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2588847568813151944}
-        m_MethodName: OnFire
+        m_MethodName: OnPhysical
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

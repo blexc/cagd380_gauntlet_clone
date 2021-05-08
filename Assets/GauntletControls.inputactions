@@ -22,7 +22,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Fire",
+                    "name": "Physical",
                     "type": "Button",
                     "id": "4787df7f-68d5-4f85-99a9-64a696c63325",
                     "expectedControlType": "Button",
@@ -57,7 +57,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fire",
+                    "action": "Physical",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -68,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fire",
+                    "action": "Physical",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

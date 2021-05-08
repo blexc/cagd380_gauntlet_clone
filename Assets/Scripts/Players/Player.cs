@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// you cannot move while shooting projectiles
+// health is slowly depleated over time
+// you can only move in 8 directions
 public class Player : MonoBehaviour
 {
     [SerializeField] protected int score;
@@ -11,24 +14,30 @@ public class Player : MonoBehaviour
     [SerializeField] protected int armor;
     [SerializeField] protected int movementSpeed;
     [SerializeField] protected int attackSpeed;
-    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected GameObject physicalProjectilePrefab;
+    [SerializeField] protected GameObject magicProjectilePrefab;
     protected List<Item> inventory = new List<Item>();
+
+    // timer to stop the player from moving while firing projectiles
+    float fireBuffer;
+    float fireBufferStart = 0.25f;
 
     Rigidbody rb;
     Vector2 movementInput;
+    Vector3 directionFacing;
 
     #region recieve input
     public void OnMove(InputAction.CallbackContext ctx) =>
         movementInput = ctx.ReadValue<Vector2>();
 
-    public void OnFire(InputAction.CallbackContext ctx)
+    public void OnPhysical(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed) MeleeAttack();
+        if (ctx.performed) PhysicalAttack();
     }
 
     public void OnMagic(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed) ProjectileAttack(); 
+        if (ctx.performed) MagicAttack(); 
     }
 
     public void OnStart(InputAction.CallbackContext ctx)
@@ -56,8 +65,28 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 dir = new Vector3(movementInput.x, 0f, movementInput.y);
-        rb.velocity = movementSpeed * Time.fixedDeltaTime * dir;
+        // force 8 directions and a resultant radius of 1f
+        movementInput.x = Mathf.Round(movementInput.x);
+        movementInput.y = Mathf.Round(movementInput.y);
+
+        // only consider a new direction if it's non-zero
+        if (movementInput != Vector2.zero)
+        {
+            directionFacing = new Vector3(movementInput.x, 0f, movementInput.y);
+            directionFacing = Vector3.ClampMagnitude(directionFacing, 1f);
+        }
+
+        // don't move while player is firing projectiles
+        // or if the player isn't trying to move
+        fireBuffer = Mathf.Max(fireBuffer - Time.fixedDeltaTime, 0f);
+        if (fireBuffer > 0f)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
+        // apply velocity
+        rb.velocity = movementSpeed * Time.fixedDeltaTime * directionFacing;
     }
 
     public void AddItem(GameObject item)
@@ -75,13 +104,21 @@ public class Player : MonoBehaviour
         }
     }
 
-    protected virtual void MeleeAttack()
+    // called when the attack button is pressed 
+    protected virtual void PhysicalAttack()
     {
-        // TODO 
+        fireBuffer = fireBufferStart;
+        GameObject projectileObject = Instantiate(physicalProjectilePrefab);
+        projectileObject.transform.position = transform.position;
+        projectileObject.GetComponent<PlayerProjectile>().ShootProjectile(directionFacing);
     }
 
-    protected virtual void ProjectileAttack()
+    // called when the magic button is pressed 
+    protected virtual void MagicAttack()
     {
-        // TODO 
+        fireBuffer = fireBufferStart;
+        GameObject projectileObject = Instantiate(magicProjectilePrefab);
+            projectileObject.transform.position = transform.position;
+        projectileObject.GetComponent<PlayerProjectile>().ShootProjectile(directionFacing);
     }
 }
