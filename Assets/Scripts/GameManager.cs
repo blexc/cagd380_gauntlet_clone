@@ -18,13 +18,18 @@ public class GameManager : MonoBehaviour
     static private GameManager _instance;
     static public GameManager Instance { get { return _instance; } }
 
-    public int level;
+    public GameState gameState;
+    public int levelIndex;
+    public List<GameObject> levels;
+    
+    // UI
     public GameObject pauseMenu;
     public GameObject nextLevelMenu;
     public GameObject infoBox;
-    public GameState gameState;
-
     public List<PlayerUI> playerUIList;
+
+    // private vars
+    private GameObject currentLevel;
 
     private void Awake()
     {
@@ -47,6 +52,14 @@ public class GameManager : MonoBehaviour
 
     public void GoToNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // increment the index
+        levelIndex++;
+        levelIndex %= levels.Count;
+
+        // if a level exists in the scene, destroy it
+        if (currentLevel) Destroy(currentLevel);
+
+        // spawn the new scene, and update the currentLevel var
+        currentLevel = Instantiate(levels[levelIndex]);
     }
 }

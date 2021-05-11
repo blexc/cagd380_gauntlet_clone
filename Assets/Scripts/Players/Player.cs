@@ -30,8 +30,8 @@ public class Player : MonoBehaviour
     [SerializeField] protected int attackSpeed;
     [SerializeField] protected GameObject physicalProjectilePrefab;
     [SerializeField] protected GameObject magicProjectilePrefab;
-    protected List<Potion> potions = new List<Potion>();
-    protected List<Key> keys = new List<Key>();
+    protected int numKeys;
+    protected int numPotions;
 
     // timer to stop the player from moving while firing projectiles
     float fireBuffer;
@@ -68,6 +68,11 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
+        // if there is a spawner in the scene, set the player pos there
+        var playerSpawn = FindObjectOfType<PlayerSpawn>();
+        if (playerSpawn)
+            transform.position = playerSpawn.transform.position + Vector3.right * Random.value;
+
         if (FollowCam.Instance)
             FollowCam.Instance.AddPlayerTransform(transform);
 
@@ -84,7 +89,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (myUI) myUI.UpdateText(health, score, keys.Count, potions.Count);
+        if (myUI) myUI.UpdateText(score, health, numKeys, numPotions);
 
         // force 8 directions and a resultant radius of 1f
         movementInput.x = Mathf.Round(movementInput.x);
@@ -110,15 +115,6 @@ public class Player : MonoBehaviour
         if (fireBuffer > 0f) rb.velocity = Vector3.zero;
     }
 
-    public void AddPotion(Potion p)
-    {
-        potions.Add(p); 
-    }
-
-    public void AddKey(Key k)
-    {
-        keys.Add(k); 
-    }
 
     public void TakeDamage(int value)
     {
@@ -129,6 +125,8 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    #region item related funcs
 
     public void Heal(int value)
     {
@@ -139,6 +137,27 @@ public class Player : MonoBehaviour
     {
         score += value;
     }
+
+    public void AddPotion()
+    {
+        numPotions++;
+    }
+
+    public void AddKey()
+    {
+        numKeys++;
+    }
+
+    protected void UsePotion()
+    {
+        if (numPotions > 0)
+        {
+            // TODO kill all enemies
+            numPotions--;
+        }
+    }
+
+    #endregion
 
     // called when the attack button is pressed 
     protected virtual void PhysicalAttack()
@@ -153,10 +172,7 @@ public class Player : MonoBehaviour
     protected virtual void MagicAttack()
     {
         // if the player has a potion, use it
-        foreach (Potion p in potions)
-        {
-            p.UsePotion();
-        }
+        UsePotion();
 
         fireBuffer = fireBufferStart;
         GameObject projectileObject = Instantiate(magicProjectilePrefab);
@@ -166,9 +182,10 @@ public class Player : MonoBehaviour
 
     public void TryToUnlock(Door door)
     {
-        foreach(Key i in keys)
+        if (numKeys > 0)
         {
-            i.UnlockDoor(door);
+            door.UnlockDoor();
+            numKeys--;
         }
     }
 }

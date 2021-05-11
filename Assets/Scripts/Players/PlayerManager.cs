@@ -17,12 +17,10 @@ public class PlayerManager : MonoBehaviour
     {
         numPlayers++;
         PlayerInputManager.instance.playerPrefab = players[numPlayers];
-        print("Player joined");
     }
 
     public void OnPlayerLeft()
     {
         numPlayers--;
-        print("Player left");
     }
 }
