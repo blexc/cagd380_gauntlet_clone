@@ -74,24 +74,24 @@ public class Player : MonoBehaviour
         {
             directionFacing = new Vector3(movementInput.x, 0f, movementInput.y);
             directionFacing = Vector3.ClampMagnitude(directionFacing, 1f);
+
+            // apply velocity
+            rb.velocity = movementSpeed * Time.fixedDeltaTime * directionFacing;
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
         }
 
         // don't move while player is firing projectiles
         // or if the player isn't trying to move
         fireBuffer = Mathf.Max(fireBuffer - Time.fixedDeltaTime, 0f);
-        if (fireBuffer > 0f)
-        {
-            rb.velocity = Vector3.zero;
-            return;
-        }
-
-        // apply velocity
-        rb.velocity = movementSpeed * Time.fixedDeltaTime * directionFacing;
+        if (fireBuffer > 0f) rb.velocity = Vector3.zero;
     }
 
-    public void AddItem(GameObject item)
+    public void AddItem(Item item)
     {
-        // TODO 
+        inventory.Add(item); 
     }
 
     public void TakeDamage(int value)
@@ -102,6 +102,16 @@ public class Player : MonoBehaviour
             // die
             Destroy(gameObject);
         }
+    }
+
+    public void Heal(int value)
+    {
+        health += value;
+    }
+
+    public void AddPoints(int value)
+    {
+        score += value;
     }
 
     // called when the attack button is pressed 
@@ -116,9 +126,31 @@ public class Player : MonoBehaviour
     // called when the magic button is pressed 
     protected virtual void MagicAttack()
     {
+        // if the player has a potion, use it
+        foreach (Item i in inventory)
+        {
+            Potion potion = i.GetComponent<Potion>();
+            if (potion)
+            {
+                potion.UsePotion();
+            }
+        }
+
         fireBuffer = fireBufferStart;
         GameObject projectileObject = Instantiate(magicProjectilePrefab);
             projectileObject.transform.position = transform.position;
         projectileObject.GetComponent<PlayerProjectile>().ShootProjectile(directionFacing);
+    }
+
+    public void TryToUnlock(Door door)
+    {
+        foreach(Item i in inventory)
+        {
+            var key = i.GetComponent<Key>();
+            if (key)
+            {
+                key.UnlockDoor(door);
+            }
+        }
     }
 }
