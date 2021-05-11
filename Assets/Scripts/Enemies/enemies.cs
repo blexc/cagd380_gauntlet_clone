@@ -9,17 +9,42 @@ public class enemies : MonoBehaviour
     public float health;
     public float damage;
     public NavMeshAgent agent;
-    public GameObject player;
-    private Vector3 playerPos;
+    private int currentPlayers;
+    private List<Vector3> playersTransforms;
+
+    private void Start()
+    {
+    }
 
     private void Update()
     {
-        playerPos = player.transform.position;
-
-        agent.SetDestination(playerPos);
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        Transform t = GetClosestPlayer(players);
+        if (t != null)
+        {
+            agent.SetDestination(t.position);
+        }
     }
 
     //functions
+    Transform GetClosestPlayer(GameObject[] players)
+    {
+        Transform bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (GameObject potentialTarget in players)
+        {
+            Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget.transform;
+            }
+        }
+
+        return bestTarget;
+    }
 
     void Attack()
     {
