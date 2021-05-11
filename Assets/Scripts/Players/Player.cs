@@ -3,11 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum PlayerType
+{
+    warrior,
+    valkyrie,
+    wizard,
+    elf
+}
+
 // you cannot move while shooting projectiles
 // health is slowly depleated over time
 // you can only move in 8 directions
 public class Player : MonoBehaviour
 {
+    // gets the UI associated to this player
+    private PlayerUI myUI {
+        get { return GameManager.Instance.playerUIList[(int)playerType]; }
+    }
+
+    [SerializeField] protected PlayerType playerType;
     [SerializeField] protected int score;
     [SerializeField] protected int health;
     [SerializeField] protected int damage;
@@ -16,7 +30,8 @@ public class Player : MonoBehaviour
     [SerializeField] protected int attackSpeed;
     [SerializeField] protected GameObject physicalProjectilePrefab;
     [SerializeField] protected GameObject magicProjectilePrefab;
-    protected List<Item> inventory = new List<Item>();
+    protected List<Potion> potions = new List<Potion>();
+    protected List<Key> keys = new List<Key>();
 
     // timer to stop the player from moving while firing projectiles
     float fireBuffer;
@@ -55,16 +70,22 @@ public class Player : MonoBehaviour
 
         if (FollowCam.Instance)
             FollowCam.Instance.AddPlayerTransform(transform);
+
+        if (myUI) myUI.ShowText();
     }
 
     private void Destroy()
     {
         if (FollowCam.Instance)
             FollowCam.Instance.RemovePlayerTransform(transform);
+
+        if (myUI) myUI.HideText();
     }
 
     private void FixedUpdate()
     {
+        if (myUI) myUI.UpdateText(health, score, keys.Count, potions.Count);
+
         // force 8 directions and a resultant radius of 1f
         movementInput.x = Mathf.Round(movementInput.x);
         movementInput.y = Mathf.Round(movementInput.y);
@@ -89,9 +110,14 @@ public class Player : MonoBehaviour
         if (fireBuffer > 0f) rb.velocity = Vector3.zero;
     }
 
-    public void AddItem(Item item)
+    public void AddPotion(Potion p)
     {
-        inventory.Add(item); 
+        potions.Add(p); 
+    }
+
+    public void AddKey(Key k)
+    {
+        keys.Add(k); 
     }
 
     public void TakeDamage(int value)
@@ -127,13 +153,9 @@ public class Player : MonoBehaviour
     protected virtual void MagicAttack()
     {
         // if the player has a potion, use it
-        foreach (Item i in inventory)
+        foreach (Potion p in potions)
         {
-            Potion potion = i.GetComponent<Potion>();
-            if (potion)
-            {
-                potion.UsePotion();
-            }
+            p.UsePotion();
         }
 
         fireBuffer = fireBufferStart;
@@ -144,13 +166,9 @@ public class Player : MonoBehaviour
 
     public void TryToUnlock(Door door)
     {
-        foreach(Item i in inventory)
+        foreach(Key i in keys)
         {
-            var key = i.GetComponent<Key>();
-            if (key)
-            {
-                key.UnlockDoor(door);
-            }
+            i.UnlockDoor(door);
         }
     }
 }

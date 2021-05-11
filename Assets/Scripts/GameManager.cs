@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public GameObject infoBox;
     public GameState gameState;
 
+    public List<PlayerUI> playerUIList;
+
     private void Awake()
     {
         // ensure only one instance
