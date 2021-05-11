@@ -14,5 +14,7 @@ public class Food : Item
             player.Heal(healAmount);
             Destroy(gameObject);
         }
+
+        // TODO destroy upon hitting it with proj
     }
 }

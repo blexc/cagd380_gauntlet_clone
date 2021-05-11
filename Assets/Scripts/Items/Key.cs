@@ -9,16 +9,8 @@ public class Key : Item
         var player = other.gameObject.GetComponent<Player>();
         if (player)
         {
-            player.AddKey(this);
-
-            // don't remove the gameobject, but make it not interactible
-            GetComponent<SphereCollider>().enabled = false;
-            GetComponent<MeshRenderer>().enabled = false;
+            player.AddKey();
+            Destroy(gameObject);
         }
     } 
-
-    public void UnlockDoor(Door door)
-    {
-        door.UnlockDoor();
-    }
 }
