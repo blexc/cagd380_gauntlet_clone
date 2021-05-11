@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     {
         if (ctx.performed)
         {
-            // TODO pause game?
+            TogglePauseGame();
         }
     }
     #endregion
@@ -96,7 +96,8 @@ public class Player : MonoBehaviour
         movementInput.y = Mathf.Round(movementInput.y);
 
         // only consider a new direction if it's non-zero
-        if (movementInput != Vector2.zero)
+        // and the game isn't paused
+        if (movementInput != Vector2.zero && GameManager.Instance.gameState != GameState.paused)
         {
             directionFacing = new Vector3(movementInput.x, 0f, movementInput.y);
             directionFacing = Vector3.ClampMagnitude(directionFacing, 1f);
@@ -180,6 +181,19 @@ public class Player : MonoBehaviour
         projectileObject.GetComponent<PlayerProjectile>().ShootProjectile(directionFacing);
     }
 
+    // toggle between pausing and unpausing the game
+    // any player can do this
+    private void TogglePauseGame()
+    {
+        var GM = GameManager.Instance;
+        if (GM.gameState == GameState.paused)
+            GM.Resume();
+        else if (GM.gameState == GameState.playing)
+            GM.Pause();
+        else{}// if the game state is anything else, don't do anything!
+    }
+
+    // called by door
     public void TryToUnlock(Door door)
     {
         if (numKeys > 0)

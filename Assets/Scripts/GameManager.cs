@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> levels;
     
     // UI
-    public GameObject pauseMenu;
-    public GameObject nextLevelMenu;
+    public GameObject pausePanel;
+    public GameObject inGamePanel;
     public GameObject infoBox;
     public List<PlayerUI> playerUIList;
 
@@ -42,12 +42,24 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        // TODO 
+        gameState = GameState.paused;
+
+        inGamePanel.SetActive(false);
+        pausePanel.SetActive(true);
+
+        Time.timeScale = 0f;
+        
+        // TODO make enemies stop moving??
     }
 
     public void Resume()
     {
-        // TODO 
+        gameState = GameState.playing;
+
+        inGamePanel.SetActive(true);
+        pausePanel.SetActive(false);
+
+        Time.timeScale = 1f;
     }
 
     public void GoToNextLevel()
