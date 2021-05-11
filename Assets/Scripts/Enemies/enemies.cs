@@ -1,58 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class enemies : MonoBehaviour
 {
     //variables
     public float health;
     public float damage;
-    public float moveSpeed;
-
+    public NavMeshAgent agent;
     public GameObject player;
-    public float u;
-    public Vector3 p0, p1, p01;
+    private Vector3 playerPos;
 
-    bool moving = true;
-
-    private void Start()
+    private void Update()
     {
-        u = moveSpeed / 100;
-    }
+        playerPos = player.transform.position;
 
-    private void FixedUpdate()
-    {
-        if (moving)
-        {
-            Movement();
-        }
+        agent.SetDestination(playerPos);
     }
 
     //functions
-    void Movement()
-    {
-        //get the position of this (what we are attached to) and poi
-        p0 = this.transform.position;
-        p1 = player.transform.position;
-
-        //interpolate between them
-        p01 = (1 - u) * p0 + u * p1;
-
-        //move to new position
-        this.transform.position = p01;
-    }
 
     void Attack()
     {
         Debug.Log("attack");
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             Attack();
         }
     }
-
 }

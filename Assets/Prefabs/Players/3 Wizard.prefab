@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2320946368670855941}
   - component: {fileID: 2588847568813151944}
   - component: {fileID: 2320946367527888856}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 3 Wizard
   m_TagString: Player
   m_Icon: {fileID: 0}
