@@ -57,10 +57,12 @@ public class Player : MonoBehaviour
 
     public void OnStart(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            TogglePauseGame();
-        }
+        if (ctx.performed) TogglePauseGame();
+    }
+
+    public void OnSpeedUp(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed) DebugSpeedUp();
     }
     #endregion
 
@@ -68,10 +70,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        // if there is a spawner in the scene, set the player pos there
-        var playerSpawn = FindObjectOfType<PlayerSpawn>();
-        if (playerSpawn)
-            transform.position = playerSpawn.transform.position + Vector3.right * Random.value;
+        PlaceAtSpawn();
 
         if (FollowCam.Instance)
             FollowCam.Instance.AddPlayerTransform(transform);
@@ -89,6 +88,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // prolly a bad idea to leave this in FixedUpdate 
         if (myUI) myUI.UpdateText(score, health, numKeys, numPotions);
 
         // force 8 directions and a resultant radius of 1f
@@ -116,10 +116,13 @@ public class Player : MonoBehaviour
         if (fireBuffer > 0f) rb.velocity = Vector3.zero;
     }
 
-
     public void TakeDamage(int value)
     {
-        health -= value;
+        // no negative values allowed
+        if (value <= 0) return;
+
+        // deal damage-minus-armor damage
+        health -= Mathf.Max(value - armor, 0);
         if (health <= 0)
         {
             // die
@@ -193,6 +196,17 @@ public class Player : MonoBehaviour
         else{}// if the game state is anything else, don't do anything!
     }
 
+    private void DebugSpeedUp()
+    {
+        // don't do anything if you're not debugging
+        if (!GameManager.Instance.isDebugging) return;
+
+        if (GameManager.Instance.gameState == GameState.playing)
+            Time.timeScale = 4f;
+        else
+            Time.timeScale = 1f;
+    }
+
     // called by door
     public void TryToUnlock(Door door)
     {
@@ -202,4 +216,17 @@ public class Player : MonoBehaviour
             numKeys--;
         }
     }
+
+    // if there is a spawner in the scene, set the player pos there
+    public void PlaceAtSpawn()
+    {
+        var playerSpawn = FindObjectOfType<PlayerSpawn>();
+        if (playerSpawn)
+        {
+            Vector3 offset = Vector3.right * (int)playerType * 2;
+            transform.position = playerSpawn.transform.position + offset;
+        }
+    }
+
+
 }

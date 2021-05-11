@@ -1155,7 +1155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: 0
   levelIndex: 0
-  levels: []
+  levels:
+  - {fileID: 3917415471267431257, guid: 6fc082f13b5c14b4c9324ded3dd5ec6f, type: 3}
+  - {fileID: 3917415471267431257, guid: 63b6eb74879191848855f09a90f2ff88, type: 3}
   pausePanel: {fileID: 6517374739597382692}
   inGamePanel: {fileID: 1459054785507982597}
   infoBox: {fileID: 0}
@@ -3774,7 +3776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.7838135}
+  m_AnchoredPosition: {x: 0, y: 0.7838135}
   m_SizeDelta: {x: 0.00012207, y: -1.5676}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8514176039697161517
@@ -3874,13 +3876,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5398061588237900954}
-    characterCount: 6
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0

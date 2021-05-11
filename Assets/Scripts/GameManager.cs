@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public enum GameState 
 {
@@ -18,6 +17,9 @@ public class GameManager : MonoBehaviour
     static private GameManager _instance;
     static public GameManager Instance { get { return _instance; } }
 
+    // TODO change to false on turnin
+    public bool isDebugging = true;
+
     public GameState gameState;
     public int levelIndex;
     public List<GameObject> levels;
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
     // UI
     public GameObject pausePanel;
     public GameObject inGamePanel;
-    public GameObject infoBox;
+    public GameObject infoBox; // TODO
     public List<PlayerUI> playerUIList;
 
     // private vars
@@ -38,6 +40,17 @@ public class GameManager : MonoBehaviour
             Destroy(_instance);
         else
             _instance = this;
+        
+        BuildLevel();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.F))
+        {
+            print("A");
+            Time.timeScale = 2f;
+        }
     }
 
     public void Pause()
@@ -62,16 +75,32 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void GoToNextLevel()
+    void BuildLevel()
     {
-        // increment the index
-        levelIndex++;
-        levelIndex %= levels.Count;
-
         // if a level exists in the scene, destroy it
         if (currentLevel) Destroy(currentLevel);
 
         // spawn the new scene, and update the currentLevel var
         currentLevel = Instantiate(levels[levelIndex]);
+
+        // put the players in the new spawn point
+        Player[] players = FindObjectsOfType<Player>();
+        foreach (Player p in players)
+        {
+            p.PlaceAtSpawn();
+        }
+
+        // bake navmesh at runtime
+        var nm = GameObject.FindObjectOfType<NavMeshSurface>();
+        if (nm) nm.BuildNavMesh();
+        else Debug.LogError("Nav mesh not in scene!");
+    }
+
+    public void GoToNextLevel()
+    {
+        // increment the index
+        levelIndex++;
+        levelIndex %= levels.Count;
+        BuildLevel();
     }
 }
