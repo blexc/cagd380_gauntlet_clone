@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    // TODO 
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        // overriden by children
+    } 
 }

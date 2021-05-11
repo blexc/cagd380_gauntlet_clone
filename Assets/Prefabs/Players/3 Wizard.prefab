@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8811f6d2a336b74288dbf35ce1c38ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerType: 2
   score: 0
   health: 600
   damage: 10
