@@ -1036,10 +1036,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7237f0d4629c5f443b4f35bae30c39ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  healthText: {fileID: 0}
-  keysText: {fileID: 0}
-  potionsText: {fileID: 0}
+  scoreText: {fileID: 1459054784617169911}
+  healthText: {fileID: 1459054785800220609}
+  keysText: {fileID: 1546553413}
+  potionsText: {fileID: 6760831988215370104}
 --- !u!1 &1459054784203608490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,7 +1054,7 @@ GameObject:
   - component: {fileID: 1459054784203608489}
   - component: {fileID: 1459054784203608493}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: InGameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1152,11 +1152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00c3bd6f291b7449855e9a7fab37512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  gameState: 0
+  levelIndex: 0
+  levels: []
   pauseMenu: {fileID: 0}
   nextLevelMenu: {fileID: 0}
   infoBox: {fileID: 0}
-  gameState: 0
   playerUIList:
   - {fileID: 1110912989264243396}
   - {fileID: 208000716897282198}
@@ -1568,10 +1569,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7237f0d4629c5f443b4f35bae30c39ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  healthText: {fileID: 0}
-  keysText: {fileID: 0}
-  potionsText: {fileID: 0}
+  scoreText: {fileID: 1459054784466762540}
+  healthText: {fileID: 1459054784104155223}
+  keysText: {fileID: 8041220619430945015}
+  potionsText: {fileID: 5265356809469443360}
 --- !u!1 &1459054784549024900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3006,10 +3007,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7237f0d4629c5f443b4f35bae30c39ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  healthText: {fileID: 0}
-  keysText: {fileID: 0}
-  potionsText: {fileID: 0}
+  scoreText: {fileID: 1459054785950599865}
+  healthText: {fileID: 1459054784926931616}
+  keysText: {fileID: 2039393546}
+  potionsText: {fileID: 5420422442878848078}
 --- !u!1 &1459054785800220611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3420,10 +3421,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7237f0d4629c5f443b4f35bae30c39ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  healthText: {fileID: 0}
-  keysText: {fileID: 0}
-  potionsText: {fileID: 0}
+  scoreText: {fileID: 1459054784229506333}
+  healthText: {fileID: 1459054784655780248}
+  keysText: {fileID: 4080143223117008564}
+  potionsText: {fileID: 5309044960833688170}
 --- !u!1 &1459054785950599867
 GameObject:
   m_ObjectHideFlags: 0
