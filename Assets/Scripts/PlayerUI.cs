@@ -17,25 +17,34 @@ public class PlayerUI : MonoBehaviour
 
     public void HideText()
     {
-        scoreText.enabled = false;
-        healthText.enabled = false;
-        keysText.enabled = false;
-        potionsText.enabled = false;
+        if (scoreText && healthText && keysText && potionsText)
+        {
+            scoreText.enabled = false;
+            healthText.enabled = false;
+            keysText.enabled = false;
+            potionsText.enabled = false;
+        }
     }
 
     public void ShowText()
     {
-        scoreText.enabled = true;
-        healthText.enabled = true;
-        keysText.enabled = true;
-        potionsText.enabled = true;
+        if (scoreText && healthText && keysText && potionsText)
+        {
+            scoreText.enabled = true;
+            healthText.enabled = true;
+            keysText.enabled = true;
+            potionsText.enabled = true;
+        }
     }
 
     public void UpdateText(int score, int health, int keys, int potions)
     {
-        scoreText.text = "Score: " + score.ToString();
-        healthText.text = "Health: " + health.ToString();
-        keysText.text = "Keys: " + keys.ToString();
-        potionsText.text = "Potions: " + potions.ToString();
+        if (scoreText && healthText && keysText && potionsText)
+        {
+            scoreText.text = "Score: " + score.ToString();
+            healthText.text = "Health: " + health.ToString();
+            keysText.text = "Keys: " + keys.ToString();
+            potionsText.text = "Potions: " + potions.ToString();
+        }
     }
 }
