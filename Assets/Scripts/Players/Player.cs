@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
         // if there is a spawner in the scene, set the player pos there
         var playerSpawn = FindObjectOfType<PlayerSpawn>();
         if (playerSpawn)
-            transform.position = playerSpawn.transform.position;
+            transform.position = playerSpawn.transform.position + Vector3.right * Random.value;
 
         if (FollowCam.Instance)
             FollowCam.Instance.AddPlayerTransform(transform);
