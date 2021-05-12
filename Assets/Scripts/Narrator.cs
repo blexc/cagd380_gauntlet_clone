@@ -22,7 +22,8 @@ public class Narrator : MonoBehaviour
     static private Narrator _instance;
     static public Narrator Instance { get { return _instance; } }
 
-    [SerializeField] List<AudioClip> audioClips;
+    [SerializeField] List<AudioClip> audioClips = null;
+    [SerializeField] List<string> strLines = null;
     List<bool> hasPlayed = new List<bool>();
     AudioSource audioSource;
 
@@ -50,6 +51,8 @@ public class Narrator : MonoBehaviour
             audioSource.clip = audioClips[i];
             audioSource.Play();
             hasPlayed[i] = true;
+
+            GameManager.Instance.DisplayInfo(strLines[i], audioClips[i].length);
         }
     }
 }

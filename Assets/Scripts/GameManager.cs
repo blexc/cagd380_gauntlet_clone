@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public enum GameState 
 {
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     // UI
     public GameObject pausePanel;
     public GameObject inGamePanel;
-    public GameObject infoBox; // TODO
+    public GameObject infoPanel; 
     public List<PlayerUI> playerUIList;
 
     // private vars
@@ -41,16 +42,12 @@ public class GameManager : MonoBehaviour
         else
             _instance = this;
         
+        // for these to default values
+        inGamePanel.SetActive(true);
+        infoPanel.SetActive(false);
+        pausePanel.SetActive(false);
+        
         BuildLevel();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.F))
-        {
-            print("A");
-            Time.timeScale = 2f;
-        }
     }
 
     public void Pause()
@@ -90,6 +87,8 @@ public class GameManager : MonoBehaviour
             p.PlaceAtSpawn();
         }
 
+        FollowCam.Instance.ForcePosToPOI();
+
         // bake navmesh at runtime
         var nm = GameObject.FindObjectOfType<NavMeshSurface>();
         if (nm) nm.BuildNavMesh();
@@ -102,5 +101,25 @@ public class GameManager : MonoBehaviour
         levelIndex++;
         levelIndex %= levels.Count;
         BuildLevel();
+    }
+    
+    // called by narrator
+    // display info for the duration of the audio clip
+    public void DisplayInfo(string text, float pauseTime)
+    {
+        infoPanel.SetActive(true);
+        Time.timeScale = 0f; // pause the game!
+        StartCoroutine(HideInfoAndResume(pauseTime));
+
+        var textBox = infoPanel.GetComponentInChildren<TextMeshProUGUI>();
+        if (textBox) textBox.text = text;
+    }
+
+    // resume the game over time
+    IEnumerator HideInfoAndResume(float pauseTime)
+    {
+        yield return new WaitForSecondsRealtime(pauseTime);
+        infoPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

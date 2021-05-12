@@ -57,6 +57,20 @@ public class FollowCam : MonoBehaviour
     {
         playerTransforms.Remove(t);
     }
+
+    // called by GameManager
+    public void ForcePosToPOI()
+    {
+        // take the average of all the positions of each active player
+        Vector3 target = Vector3.zero;
+        foreach (Transform t in playerTransforms)
+            target += t.position;
+        target.y = camY;
+        
+        if (playerTransforms.Count > 0) target /= playerTransforms.Count;
+
+        transform.position = target;
+    }
 }
 
 

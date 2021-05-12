@@ -55,6 +55,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fa13eca3722376d48b9e3d4e6ddf8706, type: 3}
   - {fileID: 8300000, guid: dd760cba33a324b4b8bd08aaa71a8e51, type: 3}
   - {fileID: 8300000, guid: 86464e946cb5f5744818a013f5019ecc, type: 3}
+  strLines:
+  - Don't shoot food!
+  - Player shot the food!
+  - Player took damage!
+  - Player cannot use magic without potions!
+  - pog
+  - Save keys to open doors.
+  - Food heals you.
+  - Artifact grants points.
+  - Save potion for later use.
 --- !u!82 &8383229677987984016
 AudioSource:
   m_ObjectHideFlags: 0
