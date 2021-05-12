@@ -12,6 +12,7 @@ public class Artifact : Item
         if (player)
         {
             player.AddPoints(pointAmount);
+            Narrator.Instance.SayLine(NarratorLine.artifactPoints);
             Destroy(gameObject);
         }
     }

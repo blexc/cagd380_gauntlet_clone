@@ -28,8 +28,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected int armor;
     [SerializeField] protected int movementSpeed;
     [SerializeField] protected int attackSpeed;
-    [SerializeField] protected GameObject physicalProjectilePrefab;
-    [SerializeField] protected GameObject magicProjectilePrefab;
+    [SerializeField] protected GameObject projectilePrefab;
     protected int numKeys;
     protected int numPotions;
 
@@ -57,10 +56,12 @@ public class Player : MonoBehaviour
 
     public void OnStart(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            // TODO pause game?
-        }
+        if (ctx.performed) TogglePauseGame();
+    }
+
+    public void OnSpeedUp(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed) DebugSpeedUp();
     }
     #endregion
 
@@ -68,15 +69,13 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        // if there is a spawner in the scene, set the player pos there
-        var playerSpawn = FindObjectOfType<PlayerSpawn>();
-        if (playerSpawn)
-            transform.position = playerSpawn.transform.position + Vector3.right * Random.value;
+        PlaceAtSpawn();
 
         if (FollowCam.Instance)
             FollowCam.Instance.AddPlayerTransform(transform);
 
         if (myUI) myUI.ShowText();
+
     }
 
     private void Destroy()
@@ -89,6 +88,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // prolly a bad idea to leave this in FixedUpdate 
         if (myUI) myUI.UpdateText(score, health, numKeys, numPotions);
 
         // force 8 directions and a resultant radius of 1f
@@ -96,7 +96,8 @@ public class Player : MonoBehaviour
         movementInput.y = Mathf.Round(movementInput.y);
 
         // only consider a new direction if it's non-zero
-        if (movementInput != Vector2.zero)
+        // and the game isn't paused
+        if (movementInput != Vector2.zero && GameManager.Instance.gameState != GameState.paused)
         {
             directionFacing = new Vector3(movementInput.x, 0f, movementInput.y);
             directionFacing = Vector3.ClampMagnitude(directionFacing, 1f);
@@ -115,10 +116,15 @@ public class Player : MonoBehaviour
         if (fireBuffer > 0f) rb.velocity = Vector3.zero;
     }
 
-
     public void TakeDamage(int value)
     {
-        health -= value;
+        // no negative values allowed
+        if (value <= 0) return;
+
+        Narrator.Instance.SayLine(NarratorLine.playerTookDamage);
+
+        // deal damage-minus-armor damage
+        health -= Mathf.Max(value - armor, 0);
         if (health <= 0)
         {
             // die
@@ -152,8 +158,16 @@ public class Player : MonoBehaviour
     {
         if (numPotions > 0)
         {
-            // TODO kill all enemies
+            // destroy all enemies (TODO test this!)
+            enemies[] enemies = FindObjectsOfType<enemies>();
+            foreach (enemies e in enemies)
+                Destroy(e.gameObject);
+
             numPotions--;
+        }
+        else
+        {
+            Narrator.Instance.SayLine(NarratorLine.cantUseMagicWithout);
         }
     }
 
@@ -163,8 +177,9 @@ public class Player : MonoBehaviour
     protected virtual void PhysicalAttack()
     {
         fireBuffer = fireBufferStart;
-        GameObject projectileObject = Instantiate(physicalProjectilePrefab);
-        projectileObject.transform.position = transform.position;
+        Vector3 offset = directionFacing * 1.25f;
+        Vector3 spawnPos = transform.position + offset;
+        GameObject projectileObject = Instantiate(projectilePrefab, spawnPos, Quaternion.Euler(Vector3.zero));
         projectileObject.GetComponent<PlayerProjectile>().ShootProjectile(directionFacing);
     }
 
@@ -173,19 +188,50 @@ public class Player : MonoBehaviour
     {
         // if the player has a potion, use it
         UsePotion();
-
         fireBuffer = fireBufferStart;
-        GameObject projectileObject = Instantiate(magicProjectilePrefab);
-            projectileObject.transform.position = transform.position;
-        projectileObject.GetComponent<PlayerProjectile>().ShootProjectile(directionFacing);
     }
 
+    // toggle between pausing and unpausing the game
+    // any player can do this
+    private void TogglePauseGame()
+    {
+        var GM = GameManager.Instance;
+        if (GM.gameState == GameState.paused)
+            GM.Resume();
+        else if (GM.gameState == GameState.playing)
+            GM.Pause();
+        else{}// if the game state is anything else, don't do anything!
+    }
+
+    private void DebugSpeedUp()
+    {
+        // don't do anything if you're not debugging
+        if (!GameManager.Instance.isDebugging) return;
+
+        if (GameManager.Instance.gameState == GameState.playing)
+            Time.timeScale = 4f;
+        else
+            Time.timeScale = 1f;
+    }
+
+    // called by door
     public void TryToUnlock(Door door)
     {
         if (numKeys > 0)
         {
             door.UnlockDoor();
             numKeys--;
+        }
+    }
+
+    // if there is a spawner in the scene, set the player pos there
+    public void PlaceAtSpawn()
+    {
+        var playerSpawn = FindObjectOfType<PlayerSpawn>();
+        if (playerSpawn)
+        {
+            Vector3 offset = Vector3.right * (int)playerType * 2;
+            transform.position = playerSpawn.transform.position + offset;
         }
     }
 }

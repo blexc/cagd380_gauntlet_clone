@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] GameObject[] players = null;
-    int numPlayers = 0;
+    [SerializeField] int numPlayers = 1;
 
     private void Start()
     {

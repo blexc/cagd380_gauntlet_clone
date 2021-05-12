@@ -9,12 +9,18 @@ public class Food : Item
     protected override void OnTriggerEnter(Collider other)
     {
         var player = other.gameObject.GetComponent<Player>();
+        var projectile = other.GetComponent<PlayerProjectile>();
         if (player)
         {
             player.Heal(healAmount);
+
+            Narrator.Instance.SayLine(NarratorLine.foodHeals);
             Destroy(gameObject);
         }
-
-        // TODO destroy upon hitting it with proj
+        else if (projectile)
+        {
+            Narrator.Instance.SayLine(NarratorLine.playerShotFood);
+            Destroy(gameObject);
+        }
     }
 }
