@@ -10,10 +10,8 @@ public class Potion : Item
         if (player)
         {
             player.AddPotion();
+            Narrator.Instance.SayLine(NarratorLine.savePotion);
             Destroy(gameObject);
         }
-
     } 
-
-
 }

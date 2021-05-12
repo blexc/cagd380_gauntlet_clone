@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
             FollowCam.Instance.AddPlayerTransform(transform);
 
         if (myUI) myUI.ShowText();
+
     }
 
     private void Destroy()
@@ -120,6 +121,8 @@ public class Player : MonoBehaviour
         // no negative values allowed
         if (value <= 0) return;
 
+        Narrator.Instance.SayLine(NarratorLine.playerTookDamage);
+
         // deal damage-minus-armor damage
         health -= Mathf.Max(value - armor, 0);
         if (health <= 0)
@@ -148,6 +151,7 @@ public class Player : MonoBehaviour
 
     public void AddKey()
     {
+        Narrator.Instance.SayLine(NarratorLine.saveKeys);
         numKeys++;
     }
 
@@ -161,6 +165,10 @@ public class Player : MonoBehaviour
                 Destroy(e.gameObject);
 
             numPotions--;
+        }
+        else
+        {
+            Narrator.Instance.SayLine(NarratorLine.cantUseMagicWithout);
         }
     }
 

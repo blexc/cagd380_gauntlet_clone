@@ -9,6 +9,7 @@ public class Key : Item
         var player = other.gameObject.GetComponent<Player>();
         if (player)
         {
+            Narrator.Instance.SayLine(NarratorLine.saveKeys);
             player.AddKey();
             Destroy(gameObject);
         }
