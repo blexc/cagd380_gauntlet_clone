@@ -151,7 +151,6 @@ public class Player : MonoBehaviour
 
     public void AddKey()
     {
-        Narrator.Instance.SayLine(NarratorLine.saveKeys);
         numKeys++;
     }
 
