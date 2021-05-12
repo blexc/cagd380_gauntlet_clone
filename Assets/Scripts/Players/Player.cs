@@ -28,8 +28,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected int armor;
     [SerializeField] protected int movementSpeed;
     [SerializeField] protected int attackSpeed;
-    [SerializeField] protected GameObject physicalProjectilePrefab;
-    [SerializeField] protected GameObject magicProjectilePrefab;
+    [SerializeField] protected GameObject projectilePrefab;
     protected int numKeys;
     protected int numPotions;
 
@@ -156,7 +155,11 @@ public class Player : MonoBehaviour
     {
         if (numPotions > 0)
         {
-            // TODO kill all enemies
+            // destroy all enemies (TODO test this!)
+            enemies[] enemies = FindObjectsOfType<enemies>();
+            foreach (enemies e in enemies)
+                Destroy(e.gameObject);
+
             numPotions--;
         }
     }
@@ -167,8 +170,9 @@ public class Player : MonoBehaviour
     protected virtual void PhysicalAttack()
     {
         fireBuffer = fireBufferStart;
-        GameObject projectileObject = Instantiate(physicalProjectilePrefab);
-        projectileObject.transform.position = transform.position;
+        Vector3 offset = directionFacing * 1.25f;
+        Vector3 spawnPos = transform.position + offset;
+        GameObject projectileObject = Instantiate(projectilePrefab, spawnPos, Quaternion.Euler(Vector3.zero));
         projectileObject.GetComponent<PlayerProjectile>().ShootProjectile(directionFacing);
     }
 
@@ -177,11 +181,7 @@ public class Player : MonoBehaviour
     {
         // if the player has a potion, use it
         UsePotion();
-
         fireBuffer = fireBufferStart;
-        GameObject projectileObject = Instantiate(magicProjectilePrefab);
-            projectileObject.transform.position = transform.position;
-        projectileObject.GetComponent<PlayerProjectile>().ShootProjectile(directionFacing);
     }
 
     // toggle between pausing and unpausing the game
@@ -227,6 +227,4 @@ public class Player : MonoBehaviour
             transform.position = playerSpawn.transform.position + offset;
         }
     }
-
-
 }

@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ef471dd238ed2f4fa8528716c1ba58a, type: 2}
+  - {fileID: 2100000, guid: a71eaa4c5c01fbd4f88e976b60031db6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,8 +130,8 @@ MonoBehaviour:
   armor: 10
   movementSpeed: 500
   attackSpeed: 10
-  physicalProjectilePrefab: {fileID: 0}
-  magicProjectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 6875159959458669537, guid: 54973097d170b2a4486420103a21f6a5,
+    type: 3}
 --- !u!114 &2320946367527888856
 MonoBehaviour:
   m_ObjectHideFlags: 0

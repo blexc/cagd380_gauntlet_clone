@@ -130,8 +130,8 @@ MonoBehaviour:
   armor: 100
   movementSpeed: 600
   attackSpeed: 100
-  physicalProjectilePrefab: {fileID: 0}
-  magicProjectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 6875159959458669537, guid: 8a4b79635c3eed34bb3fe8a309620f84,
+    type: 3}
 --- !u!114 &6749841221545720879
 MonoBehaviour:
   m_ObjectHideFlags: 0
