@@ -11,6 +11,13 @@ public enum PlayerType
     elf
 }
 
+public enum ItemStolen
+{
+    potion,
+    key,
+    score
+}
+
 // you cannot move while shooting projectiles
 // health is slowly depleated over time
 // you can only move in 8 directions
@@ -75,15 +82,6 @@ public class Player : MonoBehaviour
             FollowCam.Instance.AddPlayerTransform(transform);
 
         if (myUI) myUI.ShowText();
-
-    }
-
-    private void Destroy()
-    {
-        if (FollowCam.Instance)
-            FollowCam.Instance.RemovePlayerTransform(transform);
-
-        if (myUI) myUI.HideText();
     }
 
     private void FixedUpdate()
@@ -125,11 +123,7 @@ public class Player : MonoBehaviour
 
         // deal damage-minus-armor damage
         health -= Mathf.Max(value - armor, 0);
-        if (health <= 0)
-        {
-            // die
-            Destroy(gameObject);
-        }
+        if (health <= 0) KillPlayer();
     }
     
     #region item related funcs
@@ -208,7 +202,8 @@ public class Player : MonoBehaviour
         // don't do anything if you're not debugging
         if (!GameManager.Instance.isDebugging) return;
 
-        if (GameManager.Instance.gameState == GameState.playing)
+        if (Time.timeScale == 1f &&
+            GameManager.Instance.gameState == GameState.playing)
             Time.timeScale = 4f;
         else
             Time.timeScale = 1f;
@@ -230,8 +225,49 @@ public class Player : MonoBehaviour
         var playerSpawn = FindObjectOfType<PlayerSpawn>();
         if (playerSpawn)
         {
-            Vector3 offset = Vector3.right * (int)playerType * 2;
-            transform.position = playerSpawn.transform.position + offset;
+            Vector3 xoffset = Vector3.right * (int)playerType * 2;// for slight randomness
+            transform.position = playerSpawn.transform.position + xoffset;
+
+            // spawn in a y position of 2 
+            Vector3 pos = transform.position;
+            pos.y = 2f;
+            transform.position = pos;
         }
+    }
+
+    private void KillPlayer()
+    {
+        if (FollowCam.Instance)
+            FollowCam.Instance.RemovePlayerTransform(transform);
+
+        if (myUI) myUI.HideText();
+
+        StartCoroutine(GameManager.Instance.CheckForGameOver());
+
+        Destroy(gameObject);
+    }
+
+    // removes either a potion, key or score
+    // depending on what the player has
+    public ItemStolen StealFromMe()
+    {
+        ItemStolen itemStolen;
+        if (numPotions > 0)
+        {
+            numPotions--;
+            itemStolen = ItemStolen.potion;
+        }
+        else if (numKeys > 0)
+        {
+            numKeys--;
+            itemStolen = ItemStolen.key;
+        }
+        else
+        {
+            score -= 100;
+            itemStolen = ItemStolen.score;
+        }
+
+        return itemStolen;
     }
 }
