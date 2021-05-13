@@ -7,23 +7,54 @@ public class enemies : MonoBehaviour
 {
     //variables
     public float health;
-    public float damage;
+    public int damage;
     public NavMeshAgent agent;
-    private int currentPlayers;
-    private List<Vector3> playersTransforms;
+    private int currentPlayers; //current number of players in game
+    private List<Vector3> playersTransforms; //a list of all the active players
+    Player player; //an instance of the player that was just collided with
+
+    //timer stuff
+    float timer;
+    float timerStart;
 
     private void Start()
     {
-
+        timerStart = 0.5f;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
+        //generate the list of players, then run a function to determine the closest player
+        //if the closest player is not null, move towards it
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         Transform t = GetClosestPlayer(players);
         if (t != null)
         {
             agent.SetDestination(t.position);
+        }
+
+        //deal damage over time on contact
+        timer -= Time.deltaTime;
+        if (timer <= 0 && player != null)
+        {
+            timer = timerStart;
+            player.TakeDamage(damage);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            player = other.gameObject.GetComponent<Player>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            player = null;
         }
     }
 
@@ -45,18 +76,5 @@ public class enemies : MonoBehaviour
         }
 
         return bestTarget;
-    }
-
-    void Attack()
-    {
-        Debug.Log("attack");
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Attack();
-        }
     }
 }
