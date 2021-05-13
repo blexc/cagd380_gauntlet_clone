@@ -96,6 +96,7 @@ Transform:
   - {fileID: 2127258882900058976}
   - {fileID: 3917415472701344848}
   - {fileID: 2802663756457659981}
+  - {fileID: 2299452046688774131}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2783,15 +2784,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3917415471267431256}
     m_Modifications:
-    - target: {fileID: 7442445144412734702, guid: f52e4ba0f1b814d48825f8136e24b409,
-        type: 3}
-      propertyPath: m_Name
-      value: EnemySpawner (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 7341525322094868579, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.09
+      value: -31.1
       objectReference: {fileID: 0}
     - target: {fileID: 7341525322094868579, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
@@ -2801,7 +2797,7 @@ PrefabInstance:
     - target: {fileID: 7341525322094868579, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.61
+      value: 11.6
       objectReference: {fileID: 0}
     - target: {fileID: 7341525322094868579, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
@@ -2826,7 +2822,7 @@ PrefabInstance:
     - target: {fileID: 7341525322094868579, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7341525322094868579, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
@@ -2842,6 +2838,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7442445144412734702, guid: f52e4ba0f1b814d48825f8136e24b409,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemySpawner (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5776256900806293856, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
