@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public enum GameState 
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
     static public GameManager Instance { get { return _instance; } }
 
     // TODO change to false on turnin
-    public bool isDebugging = true;
+    public bool isDebugging;
 
     public GameState gameState;
     public int levelIndex;
@@ -122,4 +123,61 @@ public class GameManager : MonoBehaviour
         infoPanel.SetActive(false);
         Time.timeScale = 1f;
     }
+
+    // if player 1 in game? 2?, etc.
+    public bool IsPlayerNumInGame(int num)
+    {
+        PlayerType playerType = (PlayerType)num;
+        switch (playerType)
+        {
+            case PlayerType.warrior:
+                if (FindObjectOfType<Warrior>()) return true;
+                break;
+            case PlayerType.valkyrie:
+                if (FindObjectOfType<Valkyrie>()) return true;
+                break;
+            case PlayerType.wizard:
+                if (FindObjectOfType<Wizard>()) return true;
+                break;
+            case PlayerType.elf:
+                if (FindObjectOfType<Elf>()) return true;
+                break;
+        }
+
+        return false;
+    }
+
+    // called upon player death 
+    public IEnumerator CheckForGameOver()
+    {
+        // wait for the player to die.
+        yield return new WaitForSeconds(0.1f);
+        if (!FindObjectOfType<Player>()) OnGameOver();
+    }
+
+    void OnGameOver()
+    {
+        // go to first scene (should be the main menu, eventually)
+        print("Game Over!");
+        gameState = GameState.gameOver;
+        Scene s = SceneManager.GetSceneByBuildIndex(0);
+        SceneManager.LoadScene(s.name);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

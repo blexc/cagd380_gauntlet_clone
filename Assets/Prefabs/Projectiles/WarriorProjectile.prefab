@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6875159959458669547}
   - component: {fileID: 6875159959458669548}
   m_Layer: 0
-  m_Name: WarriorPhysicalProjectile
+  m_Name: WarriorProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,5 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555bdddf0c8227e4b88797167d9c0fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 250
+  movementSpeed: 800
   damage: 4

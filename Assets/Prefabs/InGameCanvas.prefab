@@ -1160,6 +1160,9 @@ MonoBehaviour:
   levels:
   - {fileID: 3917415471267431257, guid: 6fc082f13b5c14b4c9324ded3dd5ec6f, type: 3}
   - {fileID: 3917415471267431257, guid: 63b6eb74879191848855f09a90f2ff88, type: 3}
+  - {fileID: 3917415471267431257, guid: 34286197484c6e948bde8eef3e7c4977, type: 3}
+  - {fileID: 3917415471267431257, guid: ad4c9d748955d77458eac0fdcdf16c3f, type: 3}
+  - {fileID: 3917415471267431257, guid: f324caa22b0b70d4fac281c75de1f14e, type: 3}
   pausePanel: {fileID: 6517374739597382692}
   inGamePanel: {fileID: 1459054785507982597}
   infoPanel: {fileID: 4532699175674375682}
@@ -1959,7 +1962,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: '@1985
 
-    Connor and Alex Games'
+    Conner and Alex Games'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
