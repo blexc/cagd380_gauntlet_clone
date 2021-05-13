@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class grunt : enemies
+public class thief : enemies
 {
-    //empty, just uses basic movement and contact damage
+
 }
