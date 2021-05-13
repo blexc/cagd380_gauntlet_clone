@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ef471dd238ed2f4fa8528716c1ba58a, type: 2}
+  - {fileID: 2100000, guid: a71eaa4c5c01fbd4f88e976b60031db6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,8 +130,8 @@ MonoBehaviour:
   armor: 10
   movementSpeed: 500
   attackSpeed: 10
-  physicalProjectilePrefab: {fileID: 0}
-  magicProjectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 6875159959458669537, guid: 54973097d170b2a4486420103a21f6a5,
+    type: 3}
 --- !u!114 &2320946367527888856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +232,23 @@ MonoBehaviour:
       Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
     m_ActionId: fc1ea70d-f8dd-4da3-8fcd-1a41045bff31
     m_ActionName: Player/Start[/XInputControllerWindows/start,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2588847568813151944}
+        m_MethodName: OnSpeedUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.InputSystem.PlayerInput+ActionEvent, Unity.InputSystem,
+      Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
+    m_ActionId: d3f4fa7e-9096-4a80-9613-0fa5cccbc19f
+    m_ActionName: Player/SpeedUp[/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

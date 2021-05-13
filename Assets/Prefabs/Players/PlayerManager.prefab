@@ -127,3 +127,4 @@ MonoBehaviour:
   - {fileID: 4911879888169786049, guid: 5700e3408ab8bca4aba44157a538948f, type: 3}
   - {fileID: 2320946368670855963, guid: d8cfeba3c27502946b1f7d7542488aba, type: 3}
   - {fileID: 6749841221545720880, guid: c81564b0ce85a7341b3cc4fc8b9c405a, type: 3}
+  numPlayers: 2
