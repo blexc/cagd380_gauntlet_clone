@@ -9,7 +9,7 @@ public class Food : Item
     protected override void OnTriggerEnter(Collider other)
     {
         var player = other.gameObject.GetComponent<Player>();
-        var projectile = other.GetComponent<PlayerProjectile>();
+        var projectile = other.gameObject.GetComponent<PlayerProjectile>();
         if (player)
         {
             player.Heal(healAmount);
