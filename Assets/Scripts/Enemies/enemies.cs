@@ -7,30 +7,74 @@ public class enemies : MonoBehaviour
 {
     //variables
     public float health;
-    public float damage;
+    public int damage;
     public NavMeshAgent agent;
-    public GameObject player;
-    private Vector3 playerPos;
+    private int currentPlayers; //current number of players in game
+    private List<Vector3> playersTransforms; //a list of all the active players
+    Player player; //an instance of the player that was just collided with
 
-    private void Update()
+    //timer stuff
+    float timer;
+    float timerStart;
+
+    private void Start()
     {
-        playerPos = player.transform.position;
-
-        agent.SetDestination(playerPos);
+        timerStart = 0.5f;
     }
 
-    //functions
-
-    void Attack()
+    protected virtual void Update()
     {
-        Debug.Log("attack");
+        //generate the list of players, then run a function to determine the closest player
+        //if the closest player is not null, move towards it
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        Transform t = GetClosestPlayer(players);
+        if (t != null)
+        {
+            agent.SetDestination(t.position);
+        }
+
+        //deal damage over time on contact
+        timer -= Time.deltaTime;
+        if (timer <= 0 && player != null)
+        {
+            timer = timerStart;
+            player.TakeDamage(damage);
+        }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Attack();
+            player = other.gameObject.GetComponent<Player>();
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            player = null;
+        }
+    }
+
+    //functions
+    Transform GetClosestPlayer(GameObject[] players)
+    {
+        Transform bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (GameObject potentialTarget in players)
+        {
+            Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget.transform;
+            }
+        }
+
+        return bestTarget;
     }
 }
