@@ -14,6 +14,7 @@ public class enemies : MonoBehaviour
 
     private void Start()
     {
+
     }
 
     private void Update()
