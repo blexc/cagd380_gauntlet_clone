@@ -263,6 +263,7 @@ public class Player : MonoBehaviour
         else
         {
             score -= 100;
+            score = Mathf.Max(0, score);
             itemStolen = ItemStolen.score;
         }
 
