@@ -58,7 +58,7 @@ public class enemySpawn : MonoBehaviour
         {
             Instantiate(enemyType);
             enemyType.transform.position = this.gameObject.transform.position + new Vector3(2,0,2);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
         }
     }
 }

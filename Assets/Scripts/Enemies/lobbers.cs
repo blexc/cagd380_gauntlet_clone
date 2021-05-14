@@ -10,7 +10,8 @@ public class lobbers : enemies
 
     private void Start()
     {
-        StartCoroutine(spawnFireball());
+        StartCoroutine(spawnBomb());
+        StartCoroutine(spawnRock());
     }
 
     private void Update()
@@ -18,21 +19,39 @@ public class lobbers : enemies
         Movement();
     }
 
-    IEnumerator spawnFireball()
+    IEnumerator spawnBomb()
     {
         while (true)
         {
             GameObject projectile = Instantiate(bomb);
             projectile.transform.position = transform.position;
 
-            if (GetComponent<NavMeshAgent>().velocity.normalized != Vector3.zero)
+            if (GetComponent<UnityEngine.AI.NavMeshAgent>().velocity.normalized != Vector3.zero)
             {
-                direction = GetComponent<NavMeshAgent>().velocity.normalized;
+                direction = GetComponent<UnityEngine.AI.NavMeshAgent>().velocity.normalized;
             }
 
             projectile.GetComponent<enemyProjectile>().ShootProjectile(direction);
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(5f);
+        }
+    }
+    
+    IEnumerator spawnRock()
+    {
+        while (true)
+        {
+            GameObject projectile = Instantiate(rock);
+            projectile.transform.position = transform.position;
+
+            if (GetComponent<UnityEngine.AI.NavMeshAgent>().velocity.normalized != Vector3.zero)
+            {
+                direction = GetComponent<UnityEngine.AI.NavMeshAgent>().velocity.normalized;
+            }
+
+            projectile.GetComponent<enemyProjectile>().ShootProjectile(direction);
+
+            yield return new WaitForSeconds(3f);
         }
     }
 }
