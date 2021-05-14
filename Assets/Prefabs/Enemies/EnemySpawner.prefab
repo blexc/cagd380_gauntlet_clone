@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 5487408568917357570}
   - component: {fileID: 3605532911512607149}
   - component: {fileID: 5776256900806293856}
+  - component: {fileID: 3655540433462636783}
   m_Layer: 0
   m_Name: EnemySpawner
-  m_TagString: Untagged
+  m_TagString: espawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 6.257953, z: 1}
+  m_Center: {x: 0, y: 2.6289759, z: 0}
 --- !u!114 &5776256900806293856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grunt: {fileID: 9200348282535591487, guid: b5d35a535f0fdf140be743d955b2e6ff, type: 3}
-  ghost: {fileID: 0}
+  ghost: {fileID: 7728665369946828101, guid: c5fb8715b3e04d74f9588c7c6c9acef5, type: 3}
   demon: {fileID: 8544961702136612107, guid: 54570c945f9d1ed4fbd9305c51d0de57, type: 3}
   thief: {fileID: 2009328717881021519, guid: 8eb4165c6195c444c8811b44522384b8, type: 3}
   lobber: {fileID: 0}
@@ -116,3 +117,19 @@ MonoBehaviour:
   thiefSpawner: 0
   lobberSpawner: 0
   sorcererSpawner: 0
+--- !u!54 &3655540433462636783
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7442445144412734702}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
