@@ -2784,6 +2784,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3917415471267431256}
     m_Modifications:
+    - target: {fileID: 7442445144412734702, guid: f52e4ba0f1b814d48825f8136e24b409,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemySpawner (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 7341525322094868579, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2839,11 +2844,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7442445144412734702, guid: f52e4ba0f1b814d48825f8136e24b409,
-        type: 3}
-      propertyPath: m_Name
-      value: EnemySpawner (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 5776256900806293856, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
       propertyPath: gruntSpawner
@@ -2853,6 +2853,11 @@ PrefabInstance:
         type: 3}
       propertyPath: thiefSpawner
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776256900806293856, guid: f52e4ba0f1b814d48825f8136e24b409,
+        type: 3}
+      propertyPath: demonSpawner
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f52e4ba0f1b814d48825f8136e24b409, type: 3}
