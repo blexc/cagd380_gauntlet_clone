@@ -24,7 +24,6 @@ public class PlayerManager : MonoBehaviour
         while (GameManager.Instance.IsPlayerNumInGame(curPlayerIndex))
         {
             curPlayerIndex = (curPlayerIndex + 1) % players.Length;
-            print(curPlayerIndex);
             loopCount++;
 
             // do update the player prefab (this probably wont happen)
@@ -35,16 +34,16 @@ public class PlayerManager : MonoBehaviour
         }
 
         PlayerInputManager.instance.playerPrefab = players[curPlayerIndex];
-
-        if (Warrior.instance && Valkyrie.instance && Wizard.instance && Elf.instance)
-        {
-            print("disabling joining.");
-            PlayerInputManager.instance.DisableJoining();
-        }
     }
 
     public void OnPlayerLeft()
     {
-        // idk if we need this ??
+        if (!PlayerInputManager.instance) return;
+
+        // if there are no active players...
+        if (PlayerInputManager.instance.playerCount == 0)
+        {
+            GameManager.Instance.OnGameOver();
+        }
     }
 }
