@@ -4,4 +4,21 @@ using UnityEngine;
 
 public class Wizard : Player
 {
+    public static Wizard instance;
+
+    protected override void Start()
+    {
+        // ensure only one instance
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+
+        base.Start();
+    }
 }
