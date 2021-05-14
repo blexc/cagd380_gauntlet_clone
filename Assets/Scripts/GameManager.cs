@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public enum GameState 
@@ -29,8 +30,12 @@ public class GameManager : MonoBehaviour
     // UI
     public GameObject pausePanel;
     public GameObject inGamePanel;
+    public GameObject gameOverPanel;
     public GameObject infoPanel; 
     public List<PlayerUI> playerUIList;
+
+    // used when no player is alive
+    public GameObject spareCamera;
 
     // private vars
     private GameObject currentLevel;
@@ -45,8 +50,11 @@ public class GameManager : MonoBehaviour
         
         // for these to default values
         inGamePanel.SetActive(true);
+        spareCamera.SetActive(true);
+
         infoPanel.SetActive(false);
         pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
         
         BuildLevel();
     }
@@ -87,8 +95,6 @@ public class GameManager : MonoBehaviour
         {
             p.PlaceAtSpawn();
         }
-
-        //FollowCam.Instance.ForcePosToPOI();
 
         // bake navmesh at runtime
         var nm = GameObject.FindObjectOfType<NavMeshSurface>();
@@ -147,19 +153,19 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    // called upon player death 
-    public IEnumerator CheckForGameOver()
+    public void OnGameOver()
     {
-        // wait for the player to die.
-        yield return new WaitForSeconds(0.1f);
-        if (!FindObjectOfType<Player>()) OnGameOver();
+        gameState = GameState.gameOver;
+        gameOverPanel.SetActive(true);
+        spareCamera.SetActive(true);
+        Destroy(PlayerInputManager.instance);
+        StartCoroutine(RestartGame());
     }
 
-    void OnGameOver()
+    // reloads the scene
+    IEnumerator RestartGame()
     {
-        // go to first scene (should be the main menu, eventually)
-        print("Game Over!");
-        gameState = GameState.gameOver;
+        yield return new WaitForSecondsRealtime(2f);
         Scene s = SceneManager.GetSceneByBuildIndex(0);
         SceneManager.LoadScene(s.name);
     }
