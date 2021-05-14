@@ -8,7 +8,7 @@ public class lobbers : enemies
     public GameObject rock;
     private Vector3 direction;
 
-    private void Start()
+    private void Awake()
     {
         StartCoroutine(spawnBomb());
         StartCoroutine(spawnRock());
@@ -17,6 +17,12 @@ public class lobbers : enemies
     private void Update()
     {
         Movement();
+
+        //check for death
+        if (health <= 0)
+        {
+            Death();
+        }
     }
 
     IEnumerator spawnBomb()

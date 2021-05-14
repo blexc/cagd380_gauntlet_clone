@@ -8,7 +8,7 @@ public class demon : enemies
     public GameObject fireBall;
     private Vector3 direction;
 
-    private void Start()
+    private void Awake()
     {
         StartCoroutine(spawnFireball());
     }
@@ -16,6 +16,12 @@ public class demon : enemies
     private void Update()
     {
         Movement();
+
+        //check for death
+        if (health <= 0)
+        {
+            Death();
+        }
     }
 
     IEnumerator spawnFireball()
