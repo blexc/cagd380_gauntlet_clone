@@ -82,6 +82,8 @@ public class Player : MonoBehaviour
             FollowCam.Instance.AddPlayerTransform(transform);
 
         if (myUI) myUI.ShowText();
+
+        GameManager.Instance.spareCamera.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -237,14 +239,8 @@ public class Player : MonoBehaviour
 
     private void KillPlayer()
     {
-        if (FollowCam.Instance)
-            FollowCam.Instance.RemovePlayerTransform(transform);
-
+        if (FollowCam.Instance) FollowCam.Instance.RemovePlayerTransform(transform);
         if (myUI) myUI.HideText();
-
-        StartCoroutine(GameManager.Instance.CheckForGameOver());
-        
-        PlayerInputManager.instance.EnableJoining();
 
         Destroy(gameObject);
     }
