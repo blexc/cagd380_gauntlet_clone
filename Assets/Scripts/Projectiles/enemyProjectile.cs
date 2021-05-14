@@ -13,19 +13,17 @@ public class enemyProjectile : MonoBehaviour
     private void Start()
     {
         startPos = this.gameObject.transform.position;
+        Destroy(gameObject, 5.0f);
     }
 
-    protected void Update()
+    public void ShootProjectile(Vector3 direction)
     {
-        speed *= Time.deltaTime;
+        var rb = GetComponent<Rigidbody>();
+        rb.velocity = direction * speed * Time.fixedDeltaTime;
 
-        //generate the list of players, then run a function to determine the closest player
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        Transform t = GetClosestPlayer(players);
-
-        if (t != null)
+        if (rb.velocity == Vector3.zero)
         {
-            this.gameObject.transform.position = Vector3.Lerp(startPos, t.position, speed);
+            Destroy(gameObject);
         }
     }
 
@@ -36,26 +34,7 @@ public class enemyProjectile : MonoBehaviour
             Player player;
             player = other.gameObject.GetComponent<Player>();
             player.TakeDamage(damage);
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
-    }
-
-    Transform GetClosestPlayer(GameObject[] players)
-    {
-        Transform bestTarget = null;
-        float closestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
-        foreach (GameObject potentialTarget in players)
-        {
-            Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
-            {
-                closestDistanceSqr = dSqrToTarget;
-                bestTarget = potentialTarget.transform;
-            }
-        }
-
-        return bestTarget;
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class demon : enemies
+public class lobbers : enemies
 {
-    public GameObject fireBall;
+    public GameObject bomb;
+    public GameObject rock;
     private Vector3 direction;
 
     private void Start()
@@ -22,7 +22,7 @@ public class demon : enemies
     {
         while (true)
         {
-            GameObject projectile = Instantiate(fireBall);
+            GameObject projectile = Instantiate(bomb);
             projectile.transform.position = transform.position;
 
             if (GetComponent<NavMeshAgent>().velocity.normalized != Vector3.zero)
