@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    private void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
 
@@ -243,6 +243,8 @@ public class Player : MonoBehaviour
         if (myUI) myUI.HideText();
 
         StartCoroutine(GameManager.Instance.CheckForGameOver());
+        
+        PlayerInputManager.instance.EnableJoining();
 
         Destroy(gameObject);
     }

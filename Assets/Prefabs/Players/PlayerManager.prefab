@@ -101,7 +101,7 @@ MonoBehaviour:
     m_Reference: {fileID: -967041237388922205, guid: d8b1179141de1a14390fbd58f11e5b43,
       type: 3}
   m_PlayerPrefab: {fileID: 0}
-  m_SplitScreen: 0
+  m_SplitScreen: 1
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
   m_SplitScreenRect:
