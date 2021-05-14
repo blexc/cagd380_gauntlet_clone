@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
             p.PlaceAtSpawn();
         }
 
-        FollowCam.Instance.ForcePosToPOI();
+        //FollowCam.Instance.ForcePosToPOI();
 
         // bake navmesh at runtime
         var nm = GameObject.FindObjectOfType<NavMeshSurface>();
@@ -131,16 +131,16 @@ public class GameManager : MonoBehaviour
         switch (playerType)
         {
             case PlayerType.warrior:
-                if (FindObjectOfType<Warrior>()) return true;
+                if (Warrior.instance != null) return true;
                 break;
             case PlayerType.valkyrie:
-                if (FindObjectOfType<Valkyrie>()) return true;
+                if (Valkyrie.instance != null) return true;
                 break;
             case PlayerType.wizard:
-                if (FindObjectOfType<Wizard>()) return true;
+                if (Wizard.instance != null) return true;
                 break;
             case PlayerType.elf:
-                if (FindObjectOfType<Elf>()) return true;
+                if (Elf.instance != null) return true;
                 break;
         }
 

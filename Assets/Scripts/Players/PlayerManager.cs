@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     public void OnPlayerJoined()
     {
         int loopCount = 0;
-        
+
         // iterate through player types until there is one that is 
         // not currently in the game.
         // loopCount is to prevent infinite loops
@@ -28,10 +28,19 @@ public class PlayerManager : MonoBehaviour
             loopCount++;
 
             // do update the player prefab (this probably wont happen)
-            if (loopCount >= players.Length) return;
+            if (loopCount >= players.Length)
+            {
+                return;
+            }
         }
 
         PlayerInputManager.instance.playerPrefab = players[curPlayerIndex];
+
+        if (Warrior.instance && Valkyrie.instance && Wizard.instance && Elf.instance)
+        {
+            print("disabling joining.");
+            PlayerInputManager.instance.DisableJoining();
+        }
     }
 
     public void OnPlayerLeft()
