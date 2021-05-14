@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7442445144412734702
+--- !u!1 &1336889725368246744
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7341525322094868579}
-  - component: {fileID: 329958050309939537}
-  - component: {fileID: 5487408568917357570}
-  - component: {fileID: 3605532911512607149}
-  - component: {fileID: 5776256900806293856}
+  - component: {fileID: 1336889725368246749}
+  - component: {fileID: 1336889725368246748}
+  - component: {fileID: 1336889725368246747}
+  - component: {fileID: 1336889725368246746}
+  - component: {fileID: 1336889725368246745}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7341525322094868579
+--- !u!4 &1336889725368246749
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7442445144412734702}
+  m_GameObject: {fileID: 1336889725368246744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.1, z: 1}
+  m_LocalPosition: {x: 21.54, y: 0, z: -36.28}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &329958050309939537
+--- !u!33 &1336889725368246748
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7442445144412734702}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5487408568917357570
+  m_GameObject: {fileID: 1336889725368246744}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1336889725368246747
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7442445144412734702}
+  m_GameObject: {fileID: 1336889725368246744}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: faa81de9baf4dfc449aff6bb3eed5516, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,40 +79,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3605532911512607149
-BoxCollider:
+--- !u!135 &1336889725368246746
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7442445144412734702}
+  m_GameObject: {fileID: 1336889725368246744}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5776256900806293856
+--- !u!114 &1336889725368246745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7442445144412734702}
+  m_GameObject: {fileID: 1336889725368246744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eee95e5a2b42414e83c08cb6c0abdca, type: 3}
+  m_Script: {fileID: 11500000, guid: a1c2c23b21291ce408ab5d579f73bb04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grunt: {fileID: 9200348282535591487, guid: b5d35a535f0fdf140be743d955b2e6ff, type: 3}
-  ghost: {fileID: 7728665369946828101, guid: c5fb8715b3e04d74f9588c7c6c9acef5, type: 3}
-  demon: {fileID: 8544961702136612107, guid: 54570c945f9d1ed4fbd9305c51d0de57, type: 3}
-  thief: {fileID: 2009328717881021519, guid: 8eb4165c6195c444c8811b44522384b8, type: 3}
-  lobber: {fileID: 0}
-  sorcerer: {fileID: 0}
-  gruntSpawner: 0
-  ghostSpawner: 0
-  demonSpawner: 0
-  thiefSpawner: 0
-  lobberSpawner: 0
-  sorcererSpawner: 0
+  damage: 30
+  speed: 10

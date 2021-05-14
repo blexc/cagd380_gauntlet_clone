@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class enemies : MonoBehaviour
 {
     //variables
+    Vector3 currentPos;
+    public float distance;
     public float health;
     public int damage;
     public NavMeshAgent agent;
@@ -28,8 +30,11 @@ public class enemies : MonoBehaviour
         //if the closest player is not null, move towards it
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         Transform t = GetClosestPlayer(players);
+        currentPos = this.gameObject.transform.position;
+
         if (t != null)
         {
+            distance = Vector3.Distance(currentPos, t.position);
             agent.SetDestination(t.position);
         }
 
@@ -42,7 +47,7 @@ public class enemies : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
