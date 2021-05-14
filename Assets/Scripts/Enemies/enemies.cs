@@ -44,7 +44,11 @@ public class enemies : MonoBehaviour
     public void Death()
     {
         Destroy(this.gameObject);
-        player.AddPoints(100);
+    }
+
+    public void takeDamage(int damage)
+    {
+        health = health - damage;
     }
 
     public void Movement()

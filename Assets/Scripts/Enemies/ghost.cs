@@ -7,6 +7,12 @@ public class ghost : enemies
     private void Update()
     {
         Movement();
+
+        //check for death
+        if (health <= 0)
+        {
+            Death();
+        }
     }
 
     protected override void OnTriggerEnter(Collider other)

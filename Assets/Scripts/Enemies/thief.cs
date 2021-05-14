@@ -11,11 +11,10 @@ public class thief : enemies
     public GameObject artifact;
 
     private Vector3 spawnPos;
-    private Vector3 currentPos;
 
     private bool stole;
 
-    private void Start()
+    private void Awake()
     {
         stole = false;
         spawnPos = this.gameObject.transform.position - new Vector3(2, 0, 2);
@@ -23,7 +22,12 @@ public class thief : enemies
 
     private void Update()
     {
-        currentPos = this.gameObject.transform.position;
+
+        //check for death
+        if (health <= 0)
+        {
+            Death();
+        }
 
         if (!stole)
         {

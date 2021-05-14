@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class demon : enemies
 {
     public GameObject fireBall;
+    private Vector3 direction;
 
-    private void Start()
+    private void Awake()
     {
         StartCoroutine(spawnFireball());
     }
@@ -14,16 +16,29 @@ public class demon : enemies
     private void Update()
     {
         Movement();
+
+        //check for death
+        if (health <= 0)
+        {
+            Death();
+        }
     }
 
     IEnumerator spawnFireball()
     {
-        if (distance <= 3)
+        while (true)
         {
-            Instantiate(fireBall);
-            fireBall.transform.position = this.gameObject.transform.position;
-        }
+            GameObject projectile = Instantiate(fireBall);
+            projectile.transform.position = transform.position;
 
-        yield return new WaitForSeconds(2f);
+            if (GetComponent<NavMeshAgent>().velocity.normalized != Vector3.zero)
+            {
+                direction = GetComponent<NavMeshAgent>().velocity.normalized;
+            }
+
+            projectile.GetComponent<enemyProjectile>().ShootProjectile(direction);
+
+            yield return new WaitForSeconds(2f);
+        }
     }
 }
