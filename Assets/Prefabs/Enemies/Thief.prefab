@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009328717881021519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.1, y: 0, z: 11.6}
+  m_LocalPosition: {x: 2, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8068671403207244348}
@@ -106,9 +106,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffb7823070dcc4428cb37966fb7cd87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  damage: 20
+  distance: 0
+  health: 100
+  damage: 30
   agent: {fileID: -5239315112066851741}
+  potion: {fileID: 9132995786359323205, guid: a2bcfff4c3a0abf409ee90d75de5253c, type: 3}
+  key: {fileID: 8181195758846535263, guid: 8cd1e90cfe87b5a49a0d5da6d9e27480, type: 3}
+  artifact: {fileID: 2440197769622449678, guid: 3d521f7357566d54bbaf7cda952a93f6,
+    type: 3}
 --- !u!195 &-5239315112066851741
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -142,7 +147,6 @@ GameObject:
   - component: {fileID: 8068671403207244348}
   - component: {fileID: 6746855230772121004}
   - component: {fileID: 2818292808897268837}
-  - component: {fileID: 7135256575601615404}
   m_Layer: 0
   m_Name: cape
   m_TagString: Untagged
@@ -209,17 +213,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &7135256575601615404
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8332341861607932524}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}

@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class enemies : MonoBehaviour
 {
     //variables
+    Vector3 currentPos;
+    public float distance;
     public float health;
     public int damage;
     public NavMeshAgent agent;
@@ -22,27 +24,7 @@ public class enemies : MonoBehaviour
         timerStart = 0.5f;
     }
 
-    protected virtual void Update()
-    {
-        //generate the list of players, then run a function to determine the closest player
-        //if the closest player is not null, move towards it
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        Transform t = GetClosestPlayer(players);
-        if (t != null)
-        {
-            agent.SetDestination(t.position);
-        }
-
-        //deal damage over time on contact
-        timer -= Time.deltaTime;
-        if (timer <= 0 && player != null)
-        {
-            timer = timerStart;
-            player.TakeDamage(damage);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -59,6 +41,39 @@ public class enemies : MonoBehaviour
     }
 
     //functions
+    public void Death()
+    {
+        Destroy(this.gameObject);
+    }
+
+    public void takeDamage(int damage)
+    {
+        health = health - damage;
+    }
+
+    public void Movement()
+    {
+        //generate the list of players, then run a function to determine the closest player
+        //if the closest player is not null, move towards it
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        Transform t = GetClosestPlayer(players);
+        currentPos = this.gameObject.transform.position;
+
+        if (t != null)
+        {
+            distance = Vector3.Distance(currentPos, t.position);
+            agent.SetDestination(t.position);
+        }
+
+        //deal damage over time on contact
+        timer -= Time.deltaTime;
+        if (timer <= 0 && player != null)
+        {
+            timer = timerStart;
+            player.TakeDamage(damage);
+        }
+    }
+
     Transform GetClosestPlayer(GameObject[] players)
     {
         Transform bestTarget = null;
