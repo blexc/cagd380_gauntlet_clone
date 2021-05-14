@@ -24,7 +24,30 @@ public class enemies : MonoBehaviour
         timerStart = 0.5f;
     }
 
-    protected virtual void Update()
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            player = other.gameObject.GetComponent<Player>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            player = null;
+        }
+    }
+
+    //functions
+    public void Death()
+    {
+        Destroy(this.gameObject);
+        player.AddPoints(100);
+    }
+
+    public void Movement()
     {
         //generate the list of players, then run a function to determine the closest player
         //if the closest player is not null, move towards it
@@ -47,23 +70,6 @@ public class enemies : MonoBehaviour
         }
     }
 
-    protected virtual void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            player = other.gameObject.GetComponent<Player>();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            player = null;
-        }
-    }
-
-    //functions
     Transform GetClosestPlayer(GameObject[] players)
     {
         Transform bestTarget = null;

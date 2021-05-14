@@ -461,7 +461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8544961702136612107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.54, y: 0, z: -36.28}
+  m_LocalPosition: {x: 23.54, y: 0, z: -34.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5883923764907123547}
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 0
-  health: 0
+  health: 100
   damage: 30
   agent: {fileID: 8818404736302589073}
   fireBall: {fileID: 1336889725368246744, guid: c2d40508c43410344b3c99ac37da8037,

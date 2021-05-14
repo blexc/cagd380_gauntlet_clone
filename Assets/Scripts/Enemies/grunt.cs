@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class grunt : enemies
 {
-    //empty, just uses basic movement and contact damage
+    private void Update()
+    {
+        Movement();
+    }
 }

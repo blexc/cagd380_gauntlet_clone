@@ -11,6 +11,11 @@ public class demon : enemies
         StartCoroutine(spawnFireball());
     }
 
+    private void Update()
+    {
+        Movement();
+    }
+
     IEnumerator spawnFireball()
     {
         if (distance <= 3)

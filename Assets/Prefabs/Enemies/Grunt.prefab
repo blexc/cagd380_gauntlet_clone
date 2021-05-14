@@ -105,7 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee1d942be62b714c9b414eb9283a896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  distance: 0
+  health: 100
   damage: 50
   agent: {fileID: 9200348282535591473}
 --- !u!195 &9200348282535591473

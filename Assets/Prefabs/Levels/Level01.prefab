@@ -2378,7 +2378,7 @@ PrefabInstance:
     - target: {fileID: 5776256900806293856, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
       propertyPath: thiefSpawner
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5776256900806293856, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
@@ -2388,7 +2388,7 @@ PrefabInstance:
     - target: {fileID: 5776256900806293856, guid: f52e4ba0f1b814d48825f8136e24b409,
         type: 3}
       propertyPath: demonSpawner
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f52e4ba0f1b814d48825f8136e24b409, type: 3}
